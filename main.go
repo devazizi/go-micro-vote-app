@@ -25,6 +25,7 @@ import (
 // }
 
 func main() {
+
 	fmt.Println("app started successfully ...")
 
 	ctxBackground := context.Background()
@@ -34,9 +35,15 @@ func main() {
 	e := echo.New()
 
 	apiV1Grope := e.Group("/api/v1")
+
+	clients := apiV1Grope.Group("/clients")
+	clients.POST("/register", userinterface.RegisterClient())
+	clients.POST("/login", userinterface.LoginClient())
+
 	votes := apiV1Grope.Group("/votes")
 	votes.GET("/all-votes", userinterface.GetAllVotes())
 	votes.POST("/register-vote", userinterface.RegisterNewVote())
 
 	e.Logger.Fatal(e.Start("0.0.0.0:3000"))
+
 }

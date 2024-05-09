@@ -15,6 +15,26 @@ type Vote struct {
 
 type VoteOption struct {
 	gorm.Model
-	Name string
-	Vote
+	Name   string
+	VoteId int
+	Vote   Vote
+}
+
+type ClientVote struct {
+	gorm.Model
+	ClientId     int
+	VoteId       int
+	VoteOptionId int
+	Description  string
+	Client       Client
+	Vote         Vote
+	VoteOption   VoteOption
+}
+
+type Client struct {
+	gorm.Model
+	CellNumber   string
+	PhoneNumber  string
+	NationalCode string
+	EmailAddress string
 }
