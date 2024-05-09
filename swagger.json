@@ -11,6 +11,14 @@ servers:
 
 # components
 components:
+  responses:
+    422:
+      description: "invalid"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      
 
   securitySchemes:
     bearerAuth:
@@ -19,6 +27,41 @@ components:
       bearerFormat: JWT
 
   schemas:
+    
+    error:
+      type: object
+      properties:
+        status_code:
+          type: integer
+        message:
+          type: string
+          
+  
+    client_register_request_schema:
+      type: object
+      properties:
+        cell_number:
+          type: string
+        phone_number:
+          type: string
+        email:
+          type: string
+        national_code:
+          type: string
+
+    client_register_response_schema:
+      type: object
+      properties:
+        id:
+          type: integer
+        cell_number:
+          type: string
+        hone_number:
+          type: string
+        email:
+          type: string
+        national_code:
+          type: string
 
 
 
@@ -37,6 +80,25 @@ tags:
 paths:
   /api/v1/clients/register:
     post:
+      description: "register new clinet in database"
+      requestBody:
+        description: "required requiest body"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/client_register_request_schema'
+      
+      responses:
+        '201':
+          description: "client registered successfully"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client_register_response_schema'
+        '422':
+          $ref : '#/components/responses/422'
+
 
 
 
