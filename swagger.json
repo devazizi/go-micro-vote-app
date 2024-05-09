@@ -98,7 +98,10 @@ paths:
                 $ref: '#/components/schemas/client_register_response_schema'
         '422':
           $ref : '#/components/responses/422'
-
+          
+  /api/v1/clients/login:
+    post:
+      description: "login client into system"
 
 
 
