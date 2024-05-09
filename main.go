@@ -8,7 +8,10 @@ import (
 	"voteapp/infrastructure"
 	userinterface "voteapp/userInterface"
 
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+
+	"os"
 )
 
 // func availableMiddleware(ctx context.Context) echo.HandlerFunc {
@@ -24,9 +27,21 @@ import (
 // 	}
 // }
 
+func loadEnvironmentVars() {
+
+	appEnv := os.Getenv("APP_ENV")
+
+	if appEnv == "" || appEnv == "development" {
+		godotenv.Read(".env")
+	}
+
+}
+
 func main() {
 
 	fmt.Println("app started successfully ...")
+
+	loadEnvironmentVars()
 
 	ctxBackground := context.Background()
 
