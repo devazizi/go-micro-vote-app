@@ -1,0 +1,5 @@
+{
+    "platform": "docker",
+    "app": "go-micro-vote",
+    "port": 3000
+}
