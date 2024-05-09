@@ -33,8 +33,9 @@ type ClientVote struct {
 
 type Client struct {
 	gorm.Model
-	CellNumber   string
-	PhoneNumber  string
-	NationalCode string
-	EmailAddress string
+	CellNumber   string `gorm:"uniqueIndex"`
+	PhoneNumber  string `gorm:"uniqueIndex"`
+	NationalCode string `gorm:"uniqueIndex"`
+	EmailAddress string `gorm:"uniqueIndex"`
+	Password     string
 }
