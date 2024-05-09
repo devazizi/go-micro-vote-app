@@ -1,0 +1,42 @@
+# paths separate of two group (need authentication and free access)
+openapi: 3.0.3
+info:
+  title: Golang Micro Vote App
+  description: Golang Micro Vote App api documentation by Openapi and Swagger
+  version: 1.0.0
+
+# servers list
+servers:
+  - url: 'http://localhost:3000'
+
+# components
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+
+
+
+# securities
+security:
+  - bearerAuth: []
+
+#tags
+tags:
+  - name: "authentication"
+    description: "actions about user authentication or authorization"
+  - name: "locations"
+    description: 'about locations e s'
+
+# routes
+paths:
+  /api/v1/clients/register:
+    post:
+
+
+
