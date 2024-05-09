@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	// "net/http"
+
 	"voteapp/infrastructure"
 	userinterface "voteapp/userInterface"
 
@@ -32,7 +33,7 @@ func loadEnvironmentVars() {
 	appEnv := os.Getenv("APP_ENV")
 
 	if appEnv == "" || appEnv == "development" {
-		godotenv.Read(".env")
+		godotenv.Load("./.env")
 	}
 
 }
@@ -45,15 +46,15 @@ func main() {
 
 	ctxBackground := context.Background()
 
-	infrastructure.InitDB(ctxBackground, "dsn write in here")
+	db := infrastructure.InitDB(ctxBackground, os.Getenv("DB_DSN"))
 
 	e := echo.New()
 
 	apiV1Grope := e.Group("/api/v1")
 
 	clients := apiV1Grope.Group("/clients")
-	clients.POST("/register", userinterface.RegisterClient())
-	clients.POST("/login", userinterface.LoginClient())
+	clients.POST("/register", userinterface.RegisterClient(db))
+	clients.POST("/login", userinterface.LoginClient(db))
 
 	votes := apiV1Grope.Group("/votes")
 	votes.GET("/all-votes", userinterface.GetAllVotes())
